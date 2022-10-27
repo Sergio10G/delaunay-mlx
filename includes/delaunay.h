@@ -25,6 +25,12 @@
 
 // Struct and type defs
 
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
+
 typedef struct s_imgdata
 {
     void    *img;
@@ -100,6 +106,17 @@ void	gen_line_array(t_vars* vars);
 void	swap_lines(t_line** l1, t_line** l2);
 int	    line_is_in_array(t_line** arr, int size, t_line* line);
 void	pop_line_from_array(t_vars* vars, t_line* line);
+
+// list_funcs.c
+t_list  *lstnew(void *content);
+void	lstadd_front(t_list **lst, t_list *new);
+int		lstsize(t_list *lst);
+t_list	*lstlast(t_list *lst);
+void	lstadd_back(t_list **lst, t_list *new);
+void	lstdelone(t_list *lst, void (*del)(void *));
+void	lstclear(t_list **lst, void (*del)(void *));
+void	lstiter(t_list *lst, void (*f)(void *));
+t_list	*lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 // errors.c
 void    error(char* msg);

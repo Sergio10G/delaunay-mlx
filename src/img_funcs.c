@@ -89,10 +89,6 @@ void	draw_line(t_imgdata* id, t_point* p1, t_point* p2)
 		for (int x = start->x; x < end->x; x++)
 		{
 			int y = start->y + dy * (x - start->x) / dx;
-			//printf("pixel on {%d, %d}\n", x, y);
-			if (x + start->radius > id->width ||
-				y + start->radius > id->height)
-				continue;
 			img_pixel_put(id, x + start->radius, y + start->radius, p1->color);
 		}
 	}
@@ -101,9 +97,6 @@ void	draw_line(t_imgdata* id, t_point* p1, t_point* p2)
 		for (int y = start->y; y < end->y; y++)
 		{
 			int x = start->x + dx * (y - start->y) / dy;
-			if (x + start->radius > id->width ||
-				y + start->radius > id->height)
-				continue;
 			img_pixel_put(id, x + start->radius, y + start->radius, p1->color);
 		}
 		
