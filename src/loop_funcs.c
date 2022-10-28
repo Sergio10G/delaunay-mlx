@@ -32,11 +32,14 @@ void	update(t_vars* vars)
 
 void	render(t_vars* vars)
 {
+	t_list*	line_lst;
+
 	clear_img(vars->id);
-	for (int i = 0; i < vars->line_count; i++)
+	line_lst = vars->line_lst;
+	while (line_lst)
 	{
-		draw_line(vars->id, vars->lines[i]->p1, vars->lines[i]->p2);
-		//printf("line from {%d, %d} to {%d, %d}\n", (vars->points[0])->x, (vars->points[0])->y, (vars->points[1])->x, (vars->points[1])->y);
+		draw_line(vars->id, ((t_line*)line_lst->content)->p1, ((t_line*)line_lst->content)->p2);
+		line_lst = line_lst->next;
 	}
 	for (int i = 0; i < vars->point_count; i++)
 		draw_point(vars->id, vars->points[i]);

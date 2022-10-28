@@ -8,12 +8,12 @@ int	loop_handler(t_vars *vars)
 	return 0;
 }
 
-int key_hook(int keycode, t_vars *vars)
+int	key_hook(int keycode, t_vars *vars)
 {
-    if (keycode == K_ESC)
-    {
-        free_vars(vars);
-        exit(0);
-    }
+	if (keycode == K_ESC)
+	{
+		free_vars(vars);
+		exit(0);
+	}
 	return 0;
 }

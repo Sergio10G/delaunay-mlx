@@ -1,8 +1,8 @@
 #include "../includes/delaunay.h"
 
-t_vars* init_vars(void)
+t_vars*	init_vars(void)
 {
-	t_vars* vars;
+	t_vars*	vars;
 	vars = calloc(sizeof(t_vars), 1);
 	if (!vars)
 		return 0;
@@ -19,9 +19,9 @@ t_vars* init_vars(void)
 	return vars;
 }
 
-t_imgdata* init_imgdata(t_vars* vars)
+t_imgdata*	init_imgdata(t_vars* vars)
 {
-	t_imgdata* id;
+	t_imgdata*	id;
 
 	id = calloc(sizeof(t_imgdata), 1);
 	if(!id)
@@ -33,9 +33,9 @@ t_imgdata* init_imgdata(t_vars* vars)
 	return id;
 }
 
-t_point* init_point(void)
+t_point*	init_point(void)
 {
-	t_point* p;
+	t_point*	p;
 
 	p = calloc(sizeof(t_point), 1);
 	if (!p)

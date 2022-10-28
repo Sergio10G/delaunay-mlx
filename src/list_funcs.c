@@ -12,12 +12,12 @@ t_list	*lstnew(void *content)
 	return (new);
 }
 
-void	lstadd_front(t_list **lst, t_list *new)
+void	lstadd_front(t_list **lst, t_list *new_item)
 {
-	if (lst && new)
+	if (lst && new_item)
 	{
-		new->next = *lst;
-		*lst = new;
+		new_item->next = *lst;
+		*lst = new_item;
 	}
 }
 
@@ -45,12 +45,12 @@ t_list	*lstlast(t_list *lst)
 	return (lst);
 }
 
-void	lstadd_back(t_list **lst, t_list *new)
+void	lstadd_back(t_list **lst, t_list *new_item)
 {
 	if (*lst)
-		(lstlast(*lst))->next = new;
+		(lstlast(*lst))->next = new_item;
 	else
-		*lst = new;
+		*lst = new_item;
 }
 
 void	lstdelone(t_list *lst, void (*del)(void *))

@@ -68,8 +68,7 @@ typedef struct s_vars
 	double			offset_y;
 	t_point*		points[MAX_POINTS];
 	int				point_count;
-	t_line**		lines;
-	int				line_count;
+	t_list*			line_lst;
 	t_imgdata*		id;
 }	t_vars;
 
@@ -101,18 +100,15 @@ void	render(t_vars* vars);
 // utils.c
 double	normrand(void);
 void	scramble_points(t_vars* vars);
-int	    calc_line_count(int point_count);
+void	free_line(void* content);
 void	gen_line_array(t_vars* vars);
-void	swap_lines(t_line** l1, t_line** l2);
-int	    line_is_in_array(t_line** arr, int size, t_line* line);
-void	pop_line_from_array(t_vars* vars, t_line* line);
 
 // list_funcs.c
 t_list	*lstnew(void *content);
-void	lstadd_front(t_list **lst, t_list *new);
+void	lstadd_front(t_list **lst, t_list *new_item);
 int		lstsize(t_list *lst);
 t_list	*lstlast(t_list *lst);
-void	lstadd_back(t_list **lst, t_list *new);
+void	lstadd_back(t_list **lst, t_list *new_item);
 void	lstdelone(t_list *lst, void (*del)(void *));
 void	lstclear(t_list **lst, void (*del)(void *));
 void	lstiter(t_list *lst, void (*f)(void *));
