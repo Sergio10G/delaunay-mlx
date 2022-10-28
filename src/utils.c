@@ -1,5 +1,4 @@
 #include "../includes/delaunay.h"
-#include <stdlib.h>
 
 double	normrand(void)
 {
@@ -43,7 +42,7 @@ void	free_line(void* content)
 	free((t_line*)content);
 }
 
-void	gen_line_array(t_vars* vars)
+void	gen_line_list(t_vars* vars)
 {
 	t_list*	point_lst;
 

@@ -105,7 +105,7 @@ void	scramble_point(t_point* p, int width, int height);
 void	scramble_points(t_vars* vars);
 void	free_line(void* content);
 void	free_point(void* content);
-void	gen_line_array(t_vars* vars);
+void	gen_line_list(t_vars* vars);
 
 // list_funcs.c
 t_list	*lstnew(void *content);

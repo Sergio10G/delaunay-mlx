@@ -1,6 +1,4 @@
 #include "../includes/delaunay.h"
-#include <stdlib.h>
-#include <unistd.h>
 
 t_vars*	init_vars(void)
 {

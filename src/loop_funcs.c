@@ -10,7 +10,7 @@ void	update(t_vars* vars)
 		update_point_physics((t_point*)point_lst->content, vars->id->width, vars->id->height);
 		point_lst = point_lst->next;
 	}
-	gen_line_array(vars);
+	gen_line_list(vars);
 }
 
 void	render(t_vars* vars)
