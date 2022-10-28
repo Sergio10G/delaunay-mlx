@@ -1,4 +1,6 @@
 #include "../includes/delaunay.h"
+#include <stdlib.h>
+#include <unistd.h>
 
 t_vars*	init_vars(void)
 {
@@ -10,12 +12,21 @@ t_vars*	init_vars(void)
 	vars->offset_x = 0.0;
 	vars->offset_y = 0.0;
 	vars->mlx = mlx_init();
-	vars->point_count = MAX_POINTS;
-	for (int i = 0; i < vars->point_count; i++)
+	for (int i = 0; i < MAX_POINTS; i++)
 	{
-		vars->points[i] = init_point();
+		t_point*	point_new = init_point();
+		if (!point_new) {
+			free_vars(vars);
+			error("Malloc error.");
+		}
+		t_list*	lst_new = lstnew(point_new);
+		if (!lst_new) {
+			free(point_new);
+			free_vars(vars);
+			error("Malloc error.");
+		}
+		lstadd_back(&vars->point_lst, lst_new);
 	}
-	
 	return vars;
 }
 

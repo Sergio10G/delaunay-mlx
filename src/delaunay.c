@@ -1,4 +1,5 @@
 #include "../includes/delaunay.h"
+#include <unistd.h>
 
 int	main(void)
 {
@@ -33,11 +34,8 @@ void	free_vars(t_vars* vars)
 	}
 	if (vars->win)
 		mlx_destroy_window(vars->mlx, vars->win);
-	for (int i = 0; i < vars->point_count; i++)
-	{
-		if (vars->points[i])
-			free(vars->points[i]);
-	}
+	if (vars->point_lst)
+		lstclear(&vars->point_lst, &free_point);
 	if (vars->line_lst)
 		lstclear(&vars->line_lst, &free_line);
 	free(vars);

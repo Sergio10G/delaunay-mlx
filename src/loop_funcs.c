@@ -2,30 +2,13 @@
 
 void	update(t_vars* vars)
 {
-	for (int i = 0; i < vars->point_count; i++)
+	t_list*	point_lst;
+
+	point_lst = vars->point_lst;
+	while (point_lst)
 	{
-		vars->points[i]->x += (int)(vars->points[i]->vel_x * 5);
-		if (vars->points[i]->x + vars->points[i]->radius >= vars->id->width)
-		{
-			vars->points[i]->x = vars->id->width - vars->points[i]->radius;
-			vars->points[i]->vel_x *= -1;
-		}
-		else if (vars->points[i]->x <= 0)
-		{
-			vars->points[i]->x = 0;
-			vars->points[i]->vel_x *= -1;
-		}
-		vars->points[i]->y += (int)(vars->points[i]->vel_y * 5);
-		if (vars->points[i]->y + vars->points[i]->radius >= vars->id->height)
-		{
-			vars->points[i]->y = vars->id->height - vars->points[i]->radius;
-			vars->points[i]->vel_y *= -1;
-		}
-		else if (vars->points[i]->y <= 0)
-		{
-			vars->points[i]->y = 0;
-			vars->points[i]->vel_y *= -1;
-		}
+		update_point_physics((t_point*)point_lst->content, vars->id->width, vars->id->height);
+		point_lst = point_lst->next;
 	}
 	gen_line_array(vars);
 }
@@ -33,6 +16,7 @@ void	update(t_vars* vars)
 void	render(t_vars* vars)
 {
 	t_list*	line_lst;
+	t_list*	point_lst;
 
 	clear_img(vars->id);
 	line_lst = vars->line_lst;
@@ -41,7 +25,10 @@ void	render(t_vars* vars)
 		draw_line(vars->id, ((t_line*)line_lst->content)->p1, ((t_line*)line_lst->content)->p2);
 		line_lst = line_lst->next;
 	}
-	for (int i = 0; i < vars->point_count; i++)
-		draw_point(vars->id, vars->points[i]);
+	point_lst = vars->point_lst;
+	while (point_lst) {
+		draw_point(vars->id, (t_point*)point_lst->content);
+		point_lst = point_lst->next;
+	}
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->id->img, 0, 0);
 }

@@ -6,6 +6,7 @@ SRCS			=	src/delaunay.c			\
 					src/img_funcs.c				\
 					src/list_funcs.c				\
 					src/loop_funcs.c				\
+					src/physics_funcs.c				\
 					src/utils.c					\
 					src/errors.c
 

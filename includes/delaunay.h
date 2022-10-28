@@ -66,8 +66,7 @@ typedef struct s_vars
 	double			scale;
 	double			offset_x;
 	double			offset_y;
-	t_point*		points[MAX_POINTS];
-	int				point_count;
+	t_list*			point_lst;
 	t_list*			line_lst;
 	t_imgdata*		id;
 }	t_vars;
@@ -97,10 +96,15 @@ int	key_hook(int keycode, t_vars *vars);
 void	update(t_vars* vars);
 void	render(t_vars* vars);
 
+// physics_funcs.c
+void	update_point_physics(t_point* p, int width, int height);
+
 // utils.c
 double	normrand(void);
+void	scramble_point(t_point* p, int width, int height);
 void	scramble_points(t_vars* vars);
 void	free_line(void* content);
+void	free_point(void* content);
 void	gen_line_array(t_vars* vars);
 
 // list_funcs.c
