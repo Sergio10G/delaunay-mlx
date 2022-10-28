@@ -22,7 +22,7 @@ void	render(t_vars* vars)
 	line_lst = vars->line_lst;
 	while (line_lst)
 	{
-		draw_line(vars->id, ((t_line*)line_lst->content)->p1, ((t_line*)line_lst->content)->p2);
+		draw_line(vars->id, (t_line*)line_lst->content);
 		line_lst = line_lst->next;
 	}
 	point_lst = vars->point_lst;

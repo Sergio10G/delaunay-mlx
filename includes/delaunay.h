@@ -80,7 +80,7 @@ void	free_vars(t_vars* vars);
 void	img_pixel_put(t_imgdata* id, int x, int y, int color);
 void	clear_img(t_imgdata* id);
 void	draw_point(t_imgdata* id, t_point* point);
-void	draw_line(t_imgdata* id, t_point* start, t_point* end);
+void	draw_line(t_imgdata* id, t_line* line);
 
 // struct_inits.c
 t_vars*		init_vars(void);
@@ -101,7 +101,7 @@ void	update_point_physics(t_point* p, int width, int height);
 
 // utils.c
 double	normrand(void);
-void	scramble_point(t_point* p, int width, int height);
+void	randomize_point(t_point* p, int width, int height);
 void	scramble_points(t_vars* vars);
 void	free_line(void* content);
 void	free_point(void* content);

@@ -6,7 +6,6 @@ void	img_pixel_put(t_imgdata* id, int x, int y, int color)
 
 	if (x >= id->width || y >= id->height)
 		return ;
-	
 	dst = id->addr + (y * id->line_length + x * (id->bits_per_pixel / 8));
 	*(int *)dst = color;
 }
@@ -20,7 +19,6 @@ void	clear_img(t_imgdata* id)
 			img_pixel_put(id, x, y, DEF_BG);
 		}
 	}
-	
 }
 
 void	draw_point(t_imgdata* id, t_point* point)
@@ -43,44 +41,42 @@ void	draw_point(t_imgdata* id, t_point* point)
 			if (x_dist_sq + y_dist_sq < rad_sq)
 				img_pixel_put(id, point->x + x, point->y + y, point->color);
 		}
-	}	
+	}
 }
 
 //	Thanks internet <3
-void	draw_line(t_imgdata* id, t_point* p1, t_point* p2)
+void	draw_line(t_imgdata* id, t_line* line)
 {
 	t_point*	start;
 	t_point*	end;
 	int			dx;
 	int			dy;
 
-	if (abs(p2->y - p1->y) < abs(p2->x - p1->x))
+	if (abs(line->p2->y - line->p1->y) < abs(line->p2->x - line->p1->x))
 	{
-		if (p1->x > p2->x)
+		if (line->p1->x > line->p2->x)
 		{
-			start = p2;
-			end = p1;
+			start = line->p2;
+			end = line->p1;
 		}
 		else
 		{
-			start = p1;
-			end = p2;
+			start = line->p1;
+			end = line->p2;
 		}
-		
 	}
 	else
 	{
-		if (p1->y > p2->y)
+		if (line->p1->y > line->p2->y)
 		{
-			start = p2;
-			end = p1;
+			start = line->p2;
+			end = line->p1;
 		}
 		else
 		{
-			start = p1;
-			end = p2;
+			start = line->p1;
+			end = line->p2;
 		}
-		
 	}
 	dx = end->x - start->x;
 	dy = end->y - start->y;
@@ -89,7 +85,7 @@ void	draw_line(t_imgdata* id, t_point* p1, t_point* p2)
 		for (int x = start->x; x < end->x; x++)
 		{
 			int y = start->y + dy * (x - start->x) / dx;
-			img_pixel_put(id, x + start->radius, y + start->radius, p1->color);
+			img_pixel_put(id, x + start->radius, y + start->radius, line->p1->color);
 		}
 	}
 	else
@@ -97,10 +93,7 @@ void	draw_line(t_imgdata* id, t_point* p1, t_point* p2)
 		for (int y = start->y; y < end->y; y++)
 		{
 			int x = start->x + dx * (y - start->y) / dy;
-			img_pixel_put(id, x + start->radius, y + start->radius, p1->color);
+			img_pixel_put(id, x + start->radius, y + start->radius, line->p1->color);
 		}
-		
 	}
-	
-	
 }

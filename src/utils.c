@@ -5,7 +5,7 @@ double	normrand(void)
 	return (double)random() / (double)RAND_MAX;
 }
 
-void	scramble_point(t_point* p, int width, int height)
+void	randomize_point(t_point* p, int width, int height)
 {
 	//	Randomize position
 	p->x = (int)(normrand() * width);
@@ -27,7 +27,7 @@ void	scramble_points(t_vars* vars)
 
 	point_lst = vars->point_lst;
 	while (point_lst) {
-		scramble_point((t_point*)point_lst->content, vars->id->width, vars->id->height);
+		randomize_point((t_point*)point_lst->content, vars->id->width, vars->id->height);
 		point_lst = point_lst->next;
 	}
 }
