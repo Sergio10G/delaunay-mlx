@@ -1,4 +1,4 @@
-#include "../includes/delaunay.h"
+#include "../inc/delaunay.h"
 
 t_list	*lstnew(void *content)
 {
@@ -114,4 +114,18 @@ t_list	*lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	}
 	new_list->next = 0;
 	return (new_list_first);
+}
+
+void	lstdellast(t_list* lst, void (*del)(void *)) {
+	t_list*	aux;
+
+	if (!lst)
+		return;
+	aux = lst;
+	while (aux->next)
+		aux = aux->next;
+	while (lst->next != aux)
+		lst = lst->next;
+	lstdelone(aux, del);
+	lst->next = 0;
 }

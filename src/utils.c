@@ -1,4 +1,4 @@
-#include "../includes/delaunay.h"
+#include "../inc/delaunay.h"
 
 double	normrand(void)
 {
@@ -11,8 +11,8 @@ void	randomize_point(t_point* p, int width, int height)
 	p->x = (int)(normrand() * width);
 	p->y = (int)(normrand() * height);
 	//	Randomize velocity
-	p->vel_x = (normrand() * 2) - 1.0;
-	p->vel_y = (normrand() * 2) - 1.0;
+	//p->vel_x = (normrand() * 2) - 1.0;
+	//p->vel_y = (normrand() * 2) - 1.0;
 	//	Randomize color
 	p->color = 0;
 	p->color += (int)(normrand() * 255.0);		//	Blue
@@ -30,16 +30,6 @@ void	scramble_points(t_vars* vars)
 		randomize_point((t_point*)point_lst->content, vars->id->width, vars->id->height);
 		point_lst = point_lst->next;
 	}
-}
-
-void	free_point(void* content)
-{
-	free((t_point*)content);
-}
-
-void	free_line(void* content)
-{
-	free((t_line*)content);
 }
 
 void	gen_line_list(t_vars* vars)

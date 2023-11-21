@@ -1,4 +1,4 @@
-#include "../includes/delaunay.h"
+#include "../inc/delaunay.h"
 
 void	img_pixel_put(t_imgdata* id, int x, int y, int color)
 {
@@ -10,6 +10,15 @@ void	img_pixel_put(t_imgdata* id, int x, int y, int color)
 	*(int *)dst = color;
 }
 
+int	img_pixel_get(t_imgdata* id, int x, int y) {
+	char	*dst;
+
+	if (x >= id->width || y >= id->height)
+		return 0;
+	dst = id->addr + (y * id->line_length + x * (id->bits_per_pixel / 8));
+	return *(int *)dst;
+}
+
 void	clear_img(t_imgdata* id)
 {
 	for (int y = 0; y < id->height; y++)
@@ -17,6 +26,23 @@ void	clear_img(t_imgdata* id)
 		for (int x = 0; x < id->width; x++)
 		{
 			img_pixel_put(id, x, y, DEF_BG);
+		}
+	}
+}
+
+void	fade_img(t_imgdata* id)
+{
+	int	color;
+
+	for (int y = 0; y < id->height; y++)
+	{
+		for (int x = 0; x < id->width; x++)
+		{
+			color = img_pixel_get(id, x, y);
+			color -= (color & 0xFF) > 0 ? 1 : 0;
+			color -= (color & 0xFF00) > 0 ? 0x0100 : 0;
+			color -= (color & 0xFF0000) > 0 ? 0x010000 : 0;
+			img_pixel_put(id, x, y, color);
 		}
 	}
 }

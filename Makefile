@@ -1,32 +1,44 @@
-NAME			=	delaunay
+# VARS	--------------------------------------------------------------
 
-SRCS			=	src/delaunay.c			\
-					src/struct_inits.c		\
-					src/hook_funcs.c		\
-					src/img_funcs.c			\
-					src/list_funcs.c		\
-					src/loop_funcs.c		\
-					src/physics_funcs.c		\
-					src/utils.c				\
-					src/errors.c
+NAME		:=	delaunay
 
-OBJS			=	$(SRCS:.c=.o)
+SRC_DIR		:=	src
 
-CC				=	gcc
+INC_DIR		:=	inc
 
-CFLAGS			=	-Wall -Werror -Wextra
+OBJ_DIR		:=	obj
 
-MLXFLAGS		=	-Lmlx-linux -L/usr/lib -Imlx-linux -lXext -lX11 -lm -lz
+SRCS		:=	$(shell find $(SRC_DIR) -type f -name *.c)
 
-MAKEFLAGS		+=	--silent
+OBJS		:=	$(patsubst $(SRC_DIR)/%,$(OBJ_DIR)/%,${SRCS:.c=.o})
 
-GREEN		=	\033[1;32m
-PINK		=	\033[1;35m
-BLUE		=	\033[1;36m
-RESET		=	\033[1;0m
+INC			:=	-I$(INC_DIR)
 
-%.o				:	%.c
-					$(CC) $(CFLAGS) -I/usr/include -Iminilibx-linux -c $< -o $@
+CC			:=	gcc
+
+CFLAGS		:=	-Wall -Werror -Wextra
+
+MLXFLAGS		=	-Lmlx-linux -L/usr/lib -Imlx-linux -lXext -lX11 -lm
+
+RM			:=	rm -f
+
+RED			:=	\033[1;31m
+GREEN		:=	\033[1;32m
+PINK		:=	\033[1;35m
+BLUE		:=	\033[1;36m
+GRAY		:=	\033[90m
+RESET		:=	\033[1;0m
+
+MAKEFLAGS	+=	--silent
+
+vpath	%.c	$(SRC_DIR)
+
+# RULES	--------------------------------------------------------------
+
+all				:	$(NAME)
+
+$(OBJ_DIR)/%.o	:	%.c
+					$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 $(NAME)			:	$(OBJS)
 					echo "$(BLUE)Compiling...$(RESET)"
@@ -34,8 +46,6 @@ $(NAME)			:	$(OBJS)
 					echo "$(PINK)minilibX compiled!$(RESET)"
 					$(CC) $(OBJS) minilibx-linux/libmlx.a minilibx-linux/libmlx_Linux.a $(MLXFLAGS) -o $(NAME)
 					echo "$(GREEN)delaunay compiled!$(RESET)"
-
-all				:	$(NAME)
 
 clean			:
 					rm -f $(OBJS)

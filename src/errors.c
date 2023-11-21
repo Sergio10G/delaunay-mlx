@@ -1,4 +1,4 @@
-#include "../includes/delaunay.h"
+#include "../inc/delaunay.h"
 
 void	error(char* msg)
 {
