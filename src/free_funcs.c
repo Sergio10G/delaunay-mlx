@@ -1,4 +1,5 @@
 #include "../inc/delaunay.h"
+#include <pthread.h>
 
 void	free_vars(t_vars* vars)
 {
@@ -13,9 +14,18 @@ void	free_vars(t_vars* vars)
 	if (vars->win)
 		mlx_destroy_window(vars->mlx, vars->win);
 	if (vars->point_lst)
-		lstclear(&vars->point_lst, &free_point);
+		lstclear(&vars->point_lst, free_point);
 	if (vars->line_lst)
-		lstclear(&vars->line_lst, &free_line);
+		lstclear(&vars->line_lst, free_line);
+	if (vars->command_lst_mtx) {
+		pthread_mutex_destroy(vars->command_lst_mtx);
+		free(vars->command_lst_mtx);
+		vars->command_lst_mtx = 0;
+	}
+	if (vars->command_lst) {
+		lstclear(&(vars->command_lst), free_command);
+		vars->command_lst = 0;
+	}
 	free(vars);
 }
 
